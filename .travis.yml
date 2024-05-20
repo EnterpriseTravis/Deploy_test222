@@ -1,0 +1,37 @@
+os: linux
+language: java
+services:
+  - docker
+cache:
+  directories:
+    - $HOME/.m2
+dist: focal
+
+rvm:
+  - 3.0.0
+
+before_install:
+  - rvm install 3.0.0
+  - gem install dpl -v 2.0.3.beta.4
+
+install: skip
+
+jobs:
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
+
+deploy:
+  provider: pages
+  token: "$GITHUB_TOKEN"
+  edge: true
+  local_dir: build
+  on:
+    branch: main
