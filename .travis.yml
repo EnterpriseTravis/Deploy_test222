@@ -23,8 +23,8 @@ after_failure:
 
 deploy:
   provider: pages
-  token: "$GITHUB_TOKEN"
-  edge: true
-  local_dir: build
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
   on:
     branch: main
